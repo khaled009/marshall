@@ -1,0 +1,23 @@
+
+.category-color {
+    width: 45px;
+    height: 45px;
+    /* text-align: center; */
+    margin: 0 auto;
+    margin-top: 9px;
+}
+.category-icon{
+    font-size: 45px;
+    vertical-align: middle;
+    margin-top: 21px;
+}
+.editedLogo {
+    width: 130px;
+    margin: 17px!important;
+}
+.dt-button{
+    border-color: #2f353b !important;
+    color: #2f353b !important;
+    background: 0 0 !important;
+}
+

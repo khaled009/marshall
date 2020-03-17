@@ -1,0 +1,854 @@
+<!DOCTYPE html >
+<html dir="rtl" xmlns="http://www.w3.org/1999/html">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1" name="viewport" />
+<meta content="admin panel " name="description" />
+<meta content="" name="feisal" />
+<meta name="csrf-token" content="{{ csrf_token() }}">
+<link rel="shortcut icon" href="img/fav.png" type="image/x-icon">
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+<title> School Control</title>
+<link href="css/font.css" rel="stylesheet">
+<link rel="stylesheet" href="css/reset.min.css">
+<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css">
+<link href="css/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+<link href="css/components-md-rtl.min.css" rel="stylesheet" id="style_components" type="text/css" />
+
+<link href="css/datatables.min.css" rel="stylesheet" type="text/css"/>
+<link href="css/jquery.dataTables.min.css" rel="stylesheet" >
+<link href="css/buttons.dataTables.min.css" rel="stylesheet">
+<link href="css/jquery.dataTables.css" rel='stylesheet prefetch'>
+<link href="css/responsive.dataTables.min.css" rel='stylesheet prefetch'>
+
+<link href="css/plugins-md-rtl.min.css" rel="stylesheet" type="text/css" />
+<link href="css/bootstrap-rtl.min.css" rel="stylesheet" type="text/css" />
+<link href="css/bootstrap-switch-rtl.min.css" rel="stylesheet" type="text/css" />
+<link href="css/layout-rtl.min.css" rel="stylesheet" type="text/css" />
+<link href="css/default-rtl.min.css" rel="stylesheet" type="text/css" id="style_color" />
+<link href="css/custom-rtl.min.css" rel="stylesheet" type="text/css" />
+<link href="css/stylee.css" rel="stylesheet" type="text/css" > </link>
+<link href="css/style.css" rel="stylesheet">
+<link href="css/normalize.css" rel="stylesheet">
+<script src="js/html5shiv.min.js"></script>
+<script src="js/respond.min.js"></script>
+</head>
+<body class="page-container-bg-solid page-header-fixed page-sidebar-closed-hide-logo page-md" onload="startTime()">
+
+<!-- Start code top header -->
+<div class="page-header navbar navbar-fixed-top">
+	<div class="page-header-inner ">
+		<div class="page-logo">
+			<a href="#!">
+			<img src="img/logo.png" alt="logo" class="logo-default editedLogo" /> </a>
+			<div class="menu-toggler sidebar-toggler">
+			</div>
+		</div>
+		<a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>
+
+		<div class="page-top">
+			<div class="top-menu">
+				<ul class="nav navbar-nav pull-right">
+
+					<li class="dropdown dropdown-user dropdown-dark add_notification">
+						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+							<span class="username">
+							<i class="fas fa-bell"></i> الإشعارات </span>
+						</a>
+						<ul class="dropdown-menu dropdown-menu-default">
+							<li><a href="#!"> إشعارات الدخول و التسجيل  </a></li>
+							<li><a href="#!">  يمكنك رؤية الإشعارات </a></li>
+
+						</ul>
+					</li>
+					<li class="dropdown dropdown-user dropdown-dark add_notification">
+						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+							<span class="username">
+							<i class="fas fa-comment"></i> الرسائل </span>
+						</a>
+						<ul class="dropdown-menu dropdown-menu-default">
+							<li><a href="#!"> إشعارات الدخول و التسجيل  </a></li>
+							<li><a href="#!">  يمكنك رؤية الإشعارات </a></li>
+
+						</ul>
+					</li>
+					<li class="dropdown dropdown-user dropdown-dark">
+						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+							<span class="username username-hide-on-mobile"> admin </span>
+						<img alt="" class="img-circle" src="img/avatar9.jpg" > </a>
+						<ul class="dropdown-menu dropdown-menu-default">
+							<li> تاريخ التسجيل <span> 1 - 10 - 2018 </span> </li>
+							<li> تاريخ الإنتهاء <span> 15 - 8 - 2020 </span> </li>
+							<li> المدة المتبقية <span> 10 أيام </span> </li>
+							<li>
+								<a href="#!" class="btn btn-primary Btn_Logout btn_delet"><i class="icon-key"></i> تعديل حساب </a>
+							</li>
+							<li>
+								<button type=submit class="btn btn-primary Btn_Logout"><i class="icon-key"></i> تسجيل الخروج </button>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<div id="clockdate">
+							<div class="clockdate-wrapper">
+								<div id="clock"></div>
+							</div>
+						</div>
+						<table border="0" width="130" dir="rtl" class="text-center">
+							<tr>
+								<td>
+									<script language="JavaScript">
+									var fixd;
+									function isGregLeapYear(year)
+									{
+									return year%4 == 0 && year%100 != 0 || year%400 == 0;
+									}
+									function gregToFixed(year, month, day)
+									{
+									var a = Math.floor((year - 1) / 4);
+									var b = Math.floor((year - 1) / 100);
+									var c = Math.floor((year - 1) / 400);
+									var d = Math.floor((367 * month - 362) / 12);
+									if (month <= 2)
+									e = 0;
+									else if (month > 2 && isGregLeapYear(year))
+									e = -1;
+									else
+									e = -2;
+									return 1 - 1 + 365 * (year - 1) + a - b + c + d + e + day;
+									}
+									function Hijri(year, month, day)
+									{
+									this.year = year;
+									this.month = month;
+									this.day = day;
+									this.toFixed = hijriToFixed;
+									this.toString = hijriToString;
+									}
+									function hijriToFixed()
+									{
+									return this.day + Math.ceil(29.5 * (this.month - 1)) + (this.year - 1) * 354 +
+									Math.floor((3 + 11 * this.year) / 30) + 227015 - 1;
+									}
+									function hijriToString()
+									{
+									var months = new Array("محرم","صفر","ربيع أول","ربيع ثانى","جمادى أول","جمادى ثانى","رجب","شعبان","رمضان","شوال","ذو القعدة","ذو الحجة");
+									return this.day + " " + months[this.month - 1]+ " " + this.year;
+									}
+									function fixedToHijri(f)
+									{
+									var i=new Hijri(1100, 1, 1);
+									i.year = Math.floor((30 * (f - 227015) + 10646) / 10631);
+									var i2=new Hijri(i.year, 1, 1);
+									var m = Math.ceil((f - 29 - i2.toFixed()) / 29.5) + 1;
+									i.month = Math.min(m, 12);
+									i2.year = i.year;
+									i2.month = i.month;
+									i2.day = 1;
+									i.day = f - i2.toFixed() + 1;
+									return i;
+									}
+									var tod=new Date();
+									var weekday=new Array("الأحد","الإثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت");
+									var monthname=new Array("يناير","فبراير","مارس","إبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر");
+									var y = tod.getFullYear();
+									var m = tod.getMonth();
+									var d = tod.getDate();
+									var dow = tod.getDay();
+									document.write(weekday[dow] + " " + d + " " + monthname[m] + " " + y);
+									m++;
+									fixd=gregToFixed(y, m, d);
+									var h=new Hijri(1421, 11, 28);
+									h = fixedToHijri(fixd);
+									document.write(" م <br> " + h.toString() + "هـ");
+									</script>
+									<script>
+									<!-- Clock Code -->
+									var dayarray=new Array("","","","","","","")
+									var montharray=new Array("","","","","","","","","","","","")
+									function getthedate(){
+									var mydate=new Date()
+									var year=mydate.getYear()
+									if (year < 1000)
+									year+=1900
+									var day=mydate.getDay()
+									var month=mydate.getMonth()
+									var daym=mydate.getDate()
+									if (daym<10)
+									daym="0"+daym
+									var hours=mydate.getHours()
+									var minutes=mydate.getMinutes()
+									var seconds=mydate.getSeconds()
+									var dn="H:i"
+									if (hours>=12)
+									dn="مساءً"
+									else
+									dn="صباحاً"
+									if (hours>12){
+									hours=hours-12
+									}
+									if (hours==0)
+									hours=12
+									if (minutes<=9)
+									minutes="0"+minutes
+									if (seconds<=9)
+									seconds="0"+seconds
+									var cdate="<small><font color='000000' face='Times New Roman'>"+hours+":"+minutes+":"+seconds+" "+dn+"</font></small>"
+									if (document.all)
+									document.all.clock.innerHTML=cdate
+									else if (document.getElementById)
+									document.getElementById("clock").innerHTML=cdate
+									else
+									document.write(cdate)
+									}
+									if (!document.all&&!document.getElementById)
+									getthedate()
+									function goforit(){
+									if (document.all||document.getElementById)
+									setInterval("getthedate()",1000)
+									}
+									</script>
+									<span id="clock">
+										<body onLoad="goforit()">
+										</span></td>
+									</tr>
+								</table>
+							</div>
+						</td>
+						</tr>
+						</table>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End code top header -->
+
+<div class="clearfix"> </div>
+
+<!-- Start code Page container -->
+<div class="page-container">
+
+	<!-- Start code sidebar -->
+	<div class="page-sidebar-wrapper" >
+		<div class="page-sidebar navbar-collapse collapse" style=" margin-top: 2%;">
+			<ul class="page-sidebar-menu   " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+				<li class="nav-item start ">
+					<a href="{!!url('admin/home')!!}" class="nav-link ">
+						<i class="icon-home"></i><span class="title">الرئيسيه</span>
+					</a>
+				</li>
+
+				<li class="nav-item ">
+					<a href="javascript:;" class="nav-link nav-toggle">
+						<i class="icon-layers"></i>
+						<span class="title">تقارير الغياب</span>
+						<span class="arrow "></span>
+					</a>
+					<ul class="sub-menu">
+						<li class="nav-item    {!! set_active('Users.index') !!}">
+							<a href="{!! route('Users.index')!!}" class="nav-link ">
+								<span class="title">أسماء الغائبين</span>
+								<span class="badge badge-success">5</span>
+							</a>
+						</li>
+						<li class="nav-item {!! set_active('Users.create') !!} ">
+							<a href="{!!route('Users.create')!!}" class="nav-link ">
+								<span class="title">أسماء الحاضرين</span>
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li class="nav-item  ">
+					<a href="javascript:;" class="nav-link nav-toggle">
+						<i class="icon-layers"></i>
+						<span class="title">تقارير التأخير</span>
+						<span class="arrow "></span>
+					</a>
+					<ul class="sub-menu">
+						<li class="nav-item  {!! set_active('Admins.index') !!}">
+							<a href="{!! route('Admins.index')!!}" class="nav-link ">
+								<span class="title"> تقرير التأخير لليوم</span>
+								<span class="badge badge-success">3</span>
+							</a>
+						</li>
+						<li class="nav-item  {!! set_active('Admins.create') !!}">
+							<a href="{!!route('Admins.create')!!}" class="nav-link ">
+								<span class="title">تقارير التأخير للشهر</span>
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li class="nav-item ">
+					<a href="javascript:;" class="nav-link nav-toggle">
+						<i class="icon-layers"></i>
+						<span class="title">  الملاحظات </span>
+						<span class="arrow"></span>
+					</a>
+					<ul class="sub-menu">
+						<li class="nav-item  {!! set_active('Package.index')!!}">
+							<a href="{!! route('Package.index')!!}" class="nav-link ">
+								<span class="title">ملاحظات اليوم</span>
+								<span class="badge badge-success">6</span>
+							</a>
+						</li>
+						<li class="nav-item  {!!set_active('Package.create')!!}">
+							<a href="{!!route('Package.create')!!}" class="nav-link ">
+								<span class="title">كل الملاحظات</span>
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li class="nav-item  ">
+					<a href="javascript:;" class="nav-link nav-toggle">
+						<i class="icon-layers"></i>
+						<span class="title"> الإنصراف </span>
+						<span class="arrow "></span>
+					</a>
+					<ul class="sub-menu">
+						<li class="nav-item  {!! set_active('Employee.index')!!}">
+							<a href="{!! route('Employee.index')!!}" class="nav-link ">
+								<span class="title">مواعيد الإنصراف لليوم</span>
+								<span class="badge badge-success">6</span>
+							</a>
+						</li>
+						<li class="nav-item  {!!set_active('Employee.create')!!}">
+							<a href="{!!route('Employee.create')!!}" class="nav-link ">
+								<span class="title"> مواعيد الانصرف للشهر  </span>
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li class="nav-item  ">
+					<a href="javascript:;" class="nav-link nav-toggle">
+						<i class="icon-layers"></i>
+						<span class="title"> أرشيف الرسائل</span>
+						<span class="arrow "></span>
+					</a>
+					<ul class="sub-menu">
+						<li class="nav-item  {!! set_active('Student.index')!!}">
+							<a href="{!! route('Student.index')!!}" class="nav-link ">
+								<span class="title">رسائل الطلاب</span>
+								<span class="badge badge-success">7</span>
+							</a>
+						</li>
+						<li class="nav-item  {!!set_active('Student.create')!!}">
+							<a href="{!!route('Student.create')!!}" class="nav-link ">
+								<span class="title">رسائل أولياء الأمور </span>
+							</a>
+						</li>
+						<li class="nav-item  {!!set_active('Student.getSingle')!!}">
+							<a href="{!!route('Student.getSingle')!!}" class="nav-link ">
+								<span class="title"> كل الرسائل </span>
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li class="nav-item  ">
+					<a href="javascript:;" class="nav-link nav-toggle">
+						<i class="icon-layers"></i>
+						<span class="title"> المستخدمين</span>
+						<span class="arrow "></span>
+					</a>
+					<ul class="sub-menu">
+						<li class="nav-item  {!! set_active('Student.index')!!}">
+							<a href="{!! route('Student.index')!!}" class="nav-link ">
+								<span class="title">الطلاب</span>
+								<span class="badge badge-success">7</span>
+							</a>
+						</li>
+						<li class="nav-item  {!!set_active('Student.create')!!}">
+							<a href="{!!route('Student.create')!!}" class="nav-link ">
+								<span class="title">المرسين </span>
+							</a>
+						</li>
+						<li class="nav-item  {!!set_active('Student.getSingle')!!}">
+							<a href="{!!route('Student.getSingle')!!}" class="nav-link ">
+								<span class="title"> الإداريين </span>
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li class="nav-item  ">
+					<a href="javascript:;" class="nav-link nav-toggle">
+						<i class="icon-layers"></i>
+						<span class="title"> أرشيف الرسائل</span>
+						<span class="arrow "></span>
+					</a>
+					<ul class="sub-menu">
+						<li class="nav-item  {!! set_active('Student.index')!!}">
+							<a href="{!! route('Student.index')!!}" class="nav-link ">
+								<span class="title">رسائل الطلاب</span>
+								<span class="badge badge-success">7</span>
+							</a>
+						</li>
+						<li class="nav-item  {!!set_active('Student.create')!!}">
+							<a href="{!!route('Student.create')!!}" class="nav-link ">
+								<span class="title">رسائل أولياء الأمور </span>
+							</a>
+						</li>
+						<li class="nav-item  {!!set_active('Student.getSingle')!!}">
+							<a href="{!!route('Student.getSingle')!!}" class="nav-link ">
+								<span class="title"> كل الرسائل </span>
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li class="nav-item start ">
+					<a href="{!!url('admin/home')!!}" class="nav-link ">
+						<i class="icon-home"></i><span class="title">قاعدة البيانات </span>
+					</a>
+				</li>
+				<li class="nav-item ">
+					<a href="javascript:;" class="nav-link nav-toggle">
+						<i class="icon-layers"></i>
+						<span class="title"> أرشيف الرسائل</span>
+						<span class="arrow "></span>
+					</a>
+					<ul class="sub-menu">
+						<li class="nav-item  {!! set_active('Student.index')!!}">
+							<a href="{!! route('Student.index')!!}" class="nav-link ">
+								<span class="title">رسائل الطلاب</span>
+								<span class="badge badge-success">7</span>
+							</a>
+						</li>
+						<li class="nav-item  {!!set_active('Student.create')!!}">
+							<a href="{!!route('Student.create')!!}" class="nav-link ">
+								<span class="title">رسائل أولياء الأمور </span>
+							</a>
+						</li>
+						<li class="nav-item  {!!set_active('Student.getSingle')!!}">
+							<a href="{!!route('Student.getSingle')!!}" class="nav-link ">
+								<span class="title"> كل الرسائل </span>
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li class="nav-item  ">
+					<a href="javascript:;" class="nav-link nav-toggle">
+						<i class="icon-layers"></i>
+						<span class="title"> أرشيف الرسائل</span>
+						<span class="arrow "></span>
+					</a>
+					<ul class="sub-menu">
+						<li class="nav-item  {!! set_active('Student.index')!!}">
+							<a href="{!! route('Student.index')!!}" class="nav-link ">
+								<span class="title">رسائل الطلاب</span>
+								<span class="badge badge-success">7</span>
+							</a>
+						</li>
+						<li class="nav-item  {!!set_active('Student.create')!!}">
+							<a href="{!!route('Student.create')!!}" class="nav-link ">
+								<span class="title">رسائل أولياء الأمور </span>
+							</a>
+						</li>
+						<li class="nav-item  {!!set_active('Student.getSingle')!!}">
+							<a href="{!!route('Student.getSingle')!!}" class="nav-link ">
+								<span class="title"> كل الرسائل </span>
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li class="nav-item  ">
+					<a href="javascript:;" class="nav-link nav-toggle">
+						<i class="icon-layers"></i>
+						<span class="title"> أرشيف الرسائل</span>
+						<span class="arrow "></span>
+					</a>
+					<ul class="sub-menu">
+						<li class="nav-item  {!! set_active('Student.index')!!}">
+							<a href="{!! route('Student.index')!!}" class="nav-link ">
+								<span class="title">رسائل الطلاب</span>
+								<span class="badge badge-success">7</span>
+							</a>
+						</li>
+						<li class="nav-item  {!!set_active('Student.create')!!}">
+							<a href="{!!route('Student.create')!!}" class="nav-link ">
+								<span class="title">رسائل أولياء الأمور </span>
+							</a>
+						</li>
+						<li class="nav-item  {!!set_active('Student.getSingle')!!}">
+							<a href="{!!route('Student.getSingle')!!}" class="nav-link ">
+								<span class="title"> كل الرسائل </span>
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li class="nav-item  ">
+					<a href="javascript:;" class="nav-link nav-toggle">
+						<i class="icon-layers"></i>
+						<span class="title"> أرشيف الرسائل</span>
+						<span class="arrow "></span>
+					</a>
+					<ul class="sub-menu">
+						<li class="nav-item  {!! set_active('Student.index')!!}">
+							<a href="{!! route('Student.index')!!}" class="nav-link ">
+								<span class="title">رسائل الطلاب</span>
+								<span class="badge badge-success">7</span>
+							</a>
+						</li>
+						<li class="nav-item  {!!set_active('Student.create')!!}">
+							<a href="{!!route('Student.create')!!}" class="nav-link ">
+								<span class="title">رسائل أولياء الأمور </span>
+							</a>
+						</li>
+						<li class="nav-item  {!!set_active('Student.getSingle')!!}">
+							<a href="{!!route('Student.getSingle')!!}" class="nav-link ">
+								<span class="title"> كل الرسائل </span>
+							</a>
+						</li>
+					</ul>
+				</li>
+
+			</ul>
+		</div>
+	</div>
+	<!-- End code sidebar -->
+
+	<!-- Start code Page contant -->
+	<div class="page-content-wrapper">
+		<div class="page-content">
+			<div class="page-head">
+				<div class="page-title">
+					<h1 class="text-center">صفحــة الغيــاب  <hr></h1>
+				</div>
+			</div>
+
+			<!-- Start Code Table Student-->
+			<section class="Table">
+				<div class="row">
+					<table  class="display example" cellspacing="0" width="100%">
+
+						<thead>
+							<tr>
+								<th>الأسم </th>
+								<th>الصف الدراسى</th>
+								<th>السنة </th>
+								<th> مدة الغياب</th>
+								<th> الفصل </th>
+								<th>ملاحظات </th>
+							</tr>
+						</thead>
+						<tfoot>
+						<tr>
+							<th>الأسم </th>
+							<th>الصف الدراسى</th>
+							<th>السنة </th>
+							<th> مدة الغياب</th>
+							<th> الفصل </th>
+							<th>ملاحظات </th>
+						</tr>
+						</tfoot>
+						<tbody>
+							<tr>
+								<td> محمد أبو تريكة </td>
+								<td> الأول </td>
+								<td> 2018 </td>
+								<td> 4 </td>
+								<td> 5-3 </td>
+								<td> لايوجد ملاحظات </td>
+							</tr>
+							<tr>
+								<td> على جبر حسن</td>
+								<td>الثانى</td>
+								<td> 2018 </td>
+								<td>5 </td>
+								<td> 5-3</td>
+								<td> لايوجد ملاحظات </td>
+							</tr>
+							<tr>
+								<td> أحمد حسن كوكا</td>
+								<td> الثالث </td>
+								<td>2017</td>
+								<td>8 </td>
+								<td>5-7</td>
+								<td> لايوجد ملاحظات </td>
+							</tr>
+							<tr>
+								<td>أحمد على جمعه</td>
+								<td> الرابع </td>
+								<td>2015</td>
+								<td>5</td>
+								<td> 2-7</td>
+								<td> لايوجد ملاحظات </td>
+							</tr>
+							<tr>
+								<td> محمد أبو تريكة </td>
+								<td> الأول </td>
+								<td> 2018 </td>
+								<td> 4 </td>
+								<td> 5-3 </td>
+								<td> لايوجد ملاحظات </td>
+							</tr>
+							<tr>
+								<td> على جبر حسن</td>
+								<td>الثانى</td>
+								<td> 2018 </td>
+								<td>5 </td>
+								<td> 5-3</td>
+								<td> لايوجد ملاحظات </td>
+							</tr>
+							<tr>
+								<td> أحمد حسن كوكا</td>
+								<td> الثالث </td>
+								<td>2017</td>
+								<td>8 </td>
+								<td>5-7</td>
+								<td> لايوجد ملاحظات </td>
+							</tr>
+							<tr>
+								<td>أحمد على جمعه</td>
+								<td> الرابع </td>
+								<td>2015</td>
+								<td>5</td>
+								<td> 2-7</td>
+								<td> لايوجد ملاحظات </td>
+							</tr>
+							<tr>
+								<td> محمد أبو تريكة </td>
+								<td> الأول </td>
+								<td> 2018 </td>
+								<td> 4 </td>
+								<td> 5-3 </td>
+								<td> لايوجد ملاحظات </td>
+							</tr>
+							<tr>
+								<td> على جبر حسن</td>
+								<td>الثانى</td>
+								<td> 2018 </td>
+								<td>5 </td>
+								<td> 5-3</td>
+								<td> لايوجد ملاحظات </td>
+							</tr>
+							<tr>
+								<td> أحمد حسن كوكا</td>
+								<td> الثالث </td>
+								<td>2017</td>
+								<td>8 </td>
+								<td>5-7</td>
+								<td> لايوجد ملاحظات </td>
+							</tr>
+							<tr>
+								<td>أحمد على جمعه</td>
+								<td> الرابع </td>
+								<td>2015</td>
+								<td>5</td>
+								<td> 2-7</td>
+								<td> لايوجد ملاحظات </td>
+							</tr>
+							<tr>
+								<td> محمد أبو تريكة </td>
+								<td> الأول </td>
+								<td> 2018 </td>
+								<td> 4 </td>
+								<td> 5-3 </td>
+								<td> لايوجد ملاحظات </td>
+							</tr>
+							<tr>
+								<td> على جبر حسن</td>
+								<td>الثانى</td>
+								<td> 2018 </td>
+								<td>5 </td>
+								<td> 5-3</td>
+								<td> لايوجد ملاحظات </td>
+							</tr>
+							<tr>
+								<td> أحمد حسن كوكا</td>
+								<td> الثالث </td>
+								<td>2017</td>
+								<td>8 </td>
+								<td>5-7</td>
+								<td> لايوجد ملاحظات </td>
+							</tr>
+							<tr>
+								<td>أحمد على جمعه</td>
+								<td> الرابع </td>
+								<td>2015</td>
+								<td>5</td>
+								<td> 2-7</td>
+								<td> لايوجد ملاحظات </td>
+							</tr>
+							<tr>
+								<td> محمد أبو تريكة </td>
+								<td> الأول </td>
+								<td> 2018 </td>
+								<td> 4 </td>
+								<td> 5-3 </td>
+								<td> لايوجد ملاحظات </td>
+							</tr>
+							<tr>
+								<td> على جبر حسن</td>
+								<td>الثانى</td>
+								<td> 2018 </td>
+								<td>5 </td>
+								<td> 5-3</td>
+								<td> لايوجد ملاحظات </td>
+							</tr>
+							<tr>
+								<td> أحمد حسن كوكا</td>
+								<td> الثالث </td>
+								<td>2017</td>
+								<td>8 </td>
+								<td>5-7</td>
+								<td> لايوجد ملاحظات </td>
+							</tr>
+							<tr>
+								<td>أحمد على جمعه</td>
+								<td> الرابع </td>
+								<td>2015</td>
+								<td>5</td>
+								<td> 2-7</td>
+								<td> لايوجد ملاحظات </td>
+							</tr>
+							<tr>
+								<td> محمد أبو تريكة </td>
+								<td> الأول </td>
+								<td> 2018 </td>
+								<td> 4 </td>
+								<td> 5-3 </td>
+								<td> لايوجد ملاحظات </td>
+							</tr>
+							<tr>
+								<td> على جبر حسن</td>
+								<td>الثانى</td>
+								<td> 2018 </td>
+								<td>5 </td>
+								<td> 5-3</td>
+								<td> لايوجد ملاحظات </td>
+							</tr>
+							<tr>
+								<td> أحمد حسن كوكا</td>
+								<td> الثالث </td>
+								<td>2017</td>
+								<td>8 </td>
+								<td>5-7</td>
+								<td> لايوجد ملاحظات </td>
+							</tr>
+							<tr>
+								<td>أحمد على جمعه</td>
+								<td> الرابع </td>
+								<td>2015</td>
+								<td>5</td>
+								<td> 2-7</td>
+								<td> لايوجد ملاحظات </td>
+							</tr>
+							<tr>
+								<td> محمد أبو تريكة </td>
+								<td> الأول </td>
+								<td> 2018 </td>
+								<td> 4 </td>
+								<td> 5-3 </td>
+								<td> لايوجد ملاحظات </td>
+							</tr>
+							<tr>
+								<td> على جبر حسن</td>
+								<td>الثانى</td>
+								<td> 2018 </td>
+								<td>5 </td>
+								<td> 5-3</td>
+								<td> لايوجد ملاحظات </td>
+							</tr>
+							<tr>
+								<td> أحمد حسن كوكا</td>
+								<td> الثالث </td>
+								<td>2017</td>
+								<td>8 </td>
+								<td>5-7</td>
+								<td> لايوجد ملاحظات </td>
+							</tr>
+							<tr>
+								<td>أحمد على جمعه</td>
+								<td> الرابع </td>
+								<td>2015</td>
+								<td>5</td>
+								<td> 2-7</td>
+								<td> لايوجد ملاحظات </td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</section>
+			<!-- eND Code Table Student-->
+
+			<!-- START Code Chart_Absence-->
+			<section class="Chart_Absence">
+				<div class="row">
+					<div class="col-xs-12 col-sm-8 col-sm-push-2">
+						<div class="ChartOne">
+							<h1 class="text-center"> معدل الغياب <hr></h1>
+							<canvas id="line-chart"></canvas>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- End Code Chart_Absence-->
+
+		</div>
+	</div>
+	<!-- Start code Page contant -->
+</div>
+<!-- End code Page container -->
+
+
+<!-- Start code page-footer -->
+<div class="page-footer">
+	<div class="page-footer-inner">
+		<span style="width: 50%;float: right;"> حقوق التصميم والبرمجة محفوظة لدي شركة <a href="https://ieasoft.net/en">أياسوفت</a> </span>
+		<span style="width: 50%; float: left;"> حقوق الموقع محفوظة لدي <a href="#!"> مدير مدرسة </a> </span>
+	</div>
+	<div class="scroll-to-top">
+		<i class="icon-arrow-up"></i>
+	</div>
+</div>
+<!-- End code page-footer -->
+
+<!-- Start code message Modal -->
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content ModalMessage">
+			<div align="center">
+				<form>
+					<h4 class="text-center">  إرسال تنبيه   <hr></h4>
+					<label> اختر الرسالة</label>
+					<select>
+						<option> الرسالة الأولى</option>
+						<option>الرسالة الثانية </option>
+						<option>الرسالة الثالثة </option>
+						<option>الرسالة الرابعة </option>
+					</select>
+					<label> أكتب رسالة جديدة</label>
+					<textarea></textarea>
+					<button class="btn btn-info btnSend_Message" type="submit"> إرســال </button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End code message Modal -->
+
+<script src="js/jquery-3.2.0.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/Chart.min.js"></script>
+<script src="js/app.min.js" type="text/javascript"></script>
+<script src="js/layout.min.js" type="text/javascript"></script>
+<script src='js/jquery.dataTables.js'></script>
+<script src='js/dataTables.responsive.min.js'></script>
+<script  src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script  src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+<script  src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.flash.min.js"></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script  src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+<script  src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
+<script src="js/index.js"></script>
+<script type="text/javascript">
+
+</script>
+
+</body>
+</html>
